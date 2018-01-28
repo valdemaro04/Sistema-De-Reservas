@@ -43,6 +43,31 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth',[
+            'authenticate' => [
+                'Form' => [
+                'fields' => ['username' => 'username', 'password' => 'password']
+            ]
+            ],
+            'loginAction' => [
+            'controller' => 'Users',
+            'action' => 'login'
+            ],
+            'authError' => 'Did you really think you are allowed to see that?',
+            'loginRedirect' => [
+            'controller' => 'users',
+            'action' => 'home'
+
+            ],
+            'logoutRedirect' => [
+            'controller' => 'users',
+            'action' => 'login'
+
+        ],
+        'authorize' => ['Controller'], // Added this line
+        'unauthorizedRedirect' => $this->referer()
+        
+        ]);
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -50,13 +75,20 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
     }
-    public function isAuthorized()
-    {
-        return true;
+    public function isAuthorized($user)
+    { 
+        if(isset($user['role']) and $user['role'] == 'admin'){
+            $this->Auth->allow(['controller' => 'users', 'action' => 'register']);
+            return true;
+        }else{
+            return false;
+        }
+        
     }
     public function beforeFilter(Event $event)
-    {
+    {   $this->set('user', $this->Auth->user());
         $this->Auth->allow(['login', 'view', 'display']);
+        
     }
 
 }

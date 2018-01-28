@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\UsersTable;
+use App\Model\Table\DateTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * App\Model\Table\DateTable Test Case
  */
-class UsersTableTest extends TestCase
+class DateTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UsersTable
+     * @var \App\Model\Table\DateTable
      */
-    public $Users;
+    public $Date;
 
     /**
      * Fixtures
@@ -24,14 +24,14 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.date',
         'app.users',
         'app.category',
-        'app.subcategory',
-        'app.date',
         'app.directory',
         'app.forms',
         'app.profile',
-        'app.routines'
+        'app.routines',
+        'app.subcategory'
     ];
 
     /**
@@ -42,8 +42,8 @@ class UsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => UsersTable::class];
-        $this->Users = TableRegistry::get('Users', $config);
+        $config = TableRegistry::exists('Date') ? [] : ['className' => DateTable::class];
+        $this->Date = TableRegistry::get('Date', $config);
     }
 
     /**
@@ -53,7 +53,7 @@ class UsersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Users);
+        unset($this->Date);
 
         parent::tearDown();
     }
