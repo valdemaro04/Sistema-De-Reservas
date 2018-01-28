@@ -92,7 +92,10 @@ class ProfileController extends AppController
             $this->Flash->error(__('The profile could not be saved. Please, try again.'));
         }
         $users = $this->Profile->Users->find('list', ['limit' => 200]);
-        $this->set(compact('profile', 'users'));
+        $this->set([
+            'profile' => $profile,
+            '_serialize' => 'profile'
+        ]);
     }
 
     /**

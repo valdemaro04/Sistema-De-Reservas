@@ -91,7 +91,10 @@ class SubcategoryController extends AppController
             }
             $this->Flash->error(__('The subcategory could not be saved. Please, try again.'));
         }
-        $this->set(compact('subcategory'));
+        $this->set([
+            'subcategory' => $subcategory,
+            '_serialize' => 'subcategory'
+        ]);
     }
 
     /**
@@ -103,7 +106,7 @@ class SubcategoryController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        //$this->request->allowMethod(['post', 'delete']);
         $subcategory = $this->Subcategory->get($id);
         if ($this->Subcategory->delete($subcategory)) {
             $this->Flash->success(__('The subcategory has been deleted.'));

@@ -90,7 +90,10 @@ class RoutinesController extends AppController
             }
             $this->Flash->error(__('The routine could not be saved. Please, try again.'));
         }
-        $this->set(compact('routine'));
+        $this->set([
+            'routine' => $routine,
+            '_serialize' => 'routine'
+        ]);
     }
 
     /**

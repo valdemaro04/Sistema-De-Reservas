@@ -91,7 +91,10 @@ class DirectoryController extends AppController
             $this->Flash->error(__('The directory could not be saved. Please, try again.'));
         }
         $users = $this->Directory->Users->find('list', ['limit' => 200]);
-        $this->set(compact('directory', 'users'));
+        $this->set([
+            'derectory' => $directory,
+            '_serialize' => 'directory'
+        ]);
     }
 
     /**

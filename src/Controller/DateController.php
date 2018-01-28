@@ -92,7 +92,10 @@ class DateController extends AppController
             }
             $this->Flash->error(__('The date could not be saved. Please, try again.'));
         }
-        $this->set(compact('date'));
+        $this->set([
+            'date' => $date,
+            '_serialize' => 'date'
+        ]);
     }
 
     /**
