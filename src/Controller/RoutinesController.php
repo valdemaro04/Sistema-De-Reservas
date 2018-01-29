@@ -11,7 +11,18 @@ use App\Controller\AppController;
  */
 class RoutinesController extends AppController
 {
-
+    public function isAuthorized($user)
+    {
+        if(isset($user['role']) and $user['role'] == 'user'){
+            if(in_array($this->request->action, ['home','logout'])){
+                return true;
+            }
+            
+        }else{
+          return parent::isAuthorized($user);
+        }
+           
+    }
     /**
      * Index method
      *
