@@ -20,11 +20,11 @@ class ProfileController extends AppController
      */
     public function index()
     {   
-    
-        $this->paginate = [
+        $profile = $this->Profile->find('all');
+        /*$this->paginate = [
             'conditions' => ['user_id'  => $this->Auth->user('id')]
-        ];
-        $profile = $this->paginate($this->Profile);
+        ];*/
+        //$profile = $this->paginate($this->Profile);
         //debug($profile);
         //$this->set(compact('profile'));
         $this->set([
