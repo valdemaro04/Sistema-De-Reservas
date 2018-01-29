@@ -25,7 +25,7 @@ class ProfileController extends AppController
             'conditions' => ['user_id'  => $this->Auth->user('id')]
         ];
         $profile = $this->paginate($this->Profile);
-        debug($profile);
+        //debug($profile);
         //$this->set(compact('profile'));
         $this->set([
             'profile' => $profile,
@@ -81,7 +81,7 @@ class ProfileController extends AppController
     public function edit($id = null)
     {
         $profile = $this->Profile->get($id, [
-            'contain' => []
+            'contain' => ['users', 'profile']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $profile = $this->Profile->patchEntity($profile, $this->request->getData());
