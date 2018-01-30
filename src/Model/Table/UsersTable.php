@@ -64,6 +64,11 @@ class UsersTable extends Table
         $this->hasOne('Subcategory', [
             'foreignKey' => 'user_id'
         ]);
+
+        $this->hasOne('Photo', [
+            'foreignKey' => 'photo_id'
+        ]);
+        
     }
 
     /**

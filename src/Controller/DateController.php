@@ -25,7 +25,7 @@ class DateController extends AppController
         ];
         
         $date = $this->paginate($this->Date);
-            //debug($Date);
+        //debug($date);
 
           $this->set([
             'date' => $date,
@@ -98,6 +98,27 @@ class DateController extends AppController
         ]);
     }
 
+    public function setStatus($id = null)
+    {
+        $date = $this->Date->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put']) && $this->request->getData()["status"]) {
+            $date = $this->Date->patchEntity($date, $this->request->getData());
+            $date->status = $this->request->getData()["status"];
+            if ($this->Date->save($date)) {
+                $this->Flash->success(__('La reserva ha sido aceptada.'));
+            }
+            $this->Flash->error(__('La reserva no pudo ser aceptada, intentelo denuevo.'));
+        }
+        $this->set([
+            'data' => $data,
+            'date' => $date,
+            '_serialize' => ['data', 'date']
+        ]);
+    }
+
+
     /**
      * Delete method
      *
@@ -115,6 +136,9 @@ class DateController extends AppController
             $this->Flash->error(__('The date could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->set([
+            'date' => $date,
+            '_serialize' => 'date'
+        ]);
     }
 }

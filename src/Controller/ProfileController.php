@@ -20,7 +20,11 @@ class ProfileController extends AppController
      */
     public function index()
     {   
-        $profile = $this->Profile->find('all');
+        $profile = $this->Profile->find('all', [
+            'conditions' => ['user_id' => $this->Auth->user('id')]
+        ]);
+
+        
         /*$this->paginate = [
             'conditions' => ['user_id'  => $this->Auth->user('id')]
         ];*/
@@ -47,7 +51,10 @@ class ProfileController extends AppController
         ]);
 
 
-        $this->set('profile', $profile);
+        $this->set([
+            'profile' => $profile,
+            '_serialize' => ['profile']
+        ]);
     }
 
     /**
@@ -78,11 +85,17 @@ class ProfileController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $profile = $this->Profile->get($id, [
-            'contain' => ['users', 'profile']
+        $this->loadModel("Photos");
+        $profile = $this->Profile->find('all', [
+            'conditions' => ['user_id' => $this->Auth->user('id')]
         ]);
+
+        $profile = $this->Profile->get($profile->first()->id, [
+            "contains" => ['Users', 'Photos']
+        ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $profile = $this->Profile->patchEntity($profile, $this->request->getData());
             if ($this->Profile->save($profile)) {
@@ -92,11 +105,48 @@ class ProfileController extends AppController
             }
             $this->Flash->error(__('The profile could not be saved. Please, try again.'));
         }
-        $users = $this->Profile->Users->find('list', ['limit' => 200]);
+        //$users = $this->Profile->Users->find('list', ['limit' => 200]);
+        $photo = $this->Photos->get($profile->photo_id);
+        
         $this->set([
             'profile' => $profile,
-            '_serialize' => 'profile'
+            'profile_photo' => $photo,
+            '_serialize' => ['profile', 'profile_photo']
         ]);
+    }
+
+    public function uploadprofilephoto() {
+        $this->loadModel("Photos");
+        $newPhoto = $this->Photos->newEntity();
+        if ($this->request->is('post')) {
+            $rData = $this->request->getData();
+            if (move_uploaded_file($rData['url']['tmp_name'], WWW_ROOT . "img/users/".$rData['url']['name'])) {
+                $newPhoto->url = "img/users/".$rData['url']['name'];
+                $photoId = $this->Photos->save($newPhoto);
+
+                $userProfileId = $this->Profile->find("all", [
+                    "conditions" => ["user_id" => $this->Auth->user('id')]
+                ])->first()->id;
+
+                $userProfile = $this->Profile->get($userProfileId, [
+                    "contains" => ["Users"]
+                ]);
+                
+                $userProfile->photo_id = $photoId->id;
+
+                $this->Profile->save($userProfile);
+            }
+            
+        }
+
+        $this->set([
+            'test' => ['Hello'],
+            'data' => $this->request->getData(),
+            'newPhoto' => $newPhoto,
+            '_serialize' => ['data', 'test']
+        ]);
+        
+
     }
 
     /**

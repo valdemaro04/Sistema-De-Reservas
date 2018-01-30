@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Profile Model
+ * Apikey Model
  *
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
  *
- * @method \App\Model\Entity\Profile get($primaryKey, $options = [])
- * @method \App\Model\Entity\Profile newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Profile[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Profile|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Profile patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Profile[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Profile findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Apikey get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Apikey newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Apikey[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Apikey|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Apikey patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Apikey[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Apikey findOrCreate($search, callable $callback = null, $options = [])
  */
-class ProfileTable extends Table
+class ApikeyTable extends Table
 {
 
     /**
@@ -32,17 +32,12 @@ class ProfileTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('profile');
+        $this->setTable('apikey');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
-        ]);
-
-        $this->hasOne('Photo', [
-            'foreignKey' => 'photo_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -60,9 +55,9 @@ class ProfileTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('json')
-            ->requirePresence('json', 'create')
-            ->notEmpty('json');
+            ->scalar('api_key')
+            ->requirePresence('api_key', 'create')
+            ->notEmpty('api_key');
 
         return $validator;
     }

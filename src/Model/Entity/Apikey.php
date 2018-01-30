@@ -4,15 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Profile Entity
+ * Apikey Entity
  *
  * @property int $id
- * @property string $json
+ * @property string $api_key
  * @property int $user_id
  *
  * @property \App\Model\Entity\User $user
  */
-class Profile extends Entity
+class Apikey extends Entity
 {
 
     /**
@@ -25,13 +25,8 @@ class Profile extends Entity
      * @var array
      */
     protected $_accessible = [
-        'json' => true,
+        'api_key' => true,
         'user_id' => true,
-        'user' => true,
-        'photo' => true
-        
-    ];
-    protected $_hidden = [
-        'password' 
+        'user' => true
     ];
 }
