@@ -30,16 +30,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 
                         <?= $this->fetch('meta') ?>
-                            <?= $this->fetch('css') ?>
-                                <?= $this->fetch('script') ?>
-                                <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-                                <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
-                                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-                                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-                                    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-                                    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-
-
+                        <?= $this->fetch('css') ?>
+                        <?= $this->fetch('script') ?>
+                        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+                        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+                        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+                        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.9/dialog-polyfill.min.css">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.9/dialog-polyfill.min.js"></script>
     </head>
 
     <body>

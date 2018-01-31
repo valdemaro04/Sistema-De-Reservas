@@ -117,12 +117,10 @@ class ProfileController extends AppController
 
     public function uploadprofilephoto() {
         $this->loadModel("Photos");
-        $newPhoto = $this->Photos->newEntity();
         if ($this->request->is('post')) {
             $rData = $this->request->getData();
             if (move_uploaded_file($rData['url']['tmp_name'], WWW_ROOT . "img/users/".$rData['url']['name'])) {
-                $newPhoto->url = "img/users/".$rData['url']['name'];
-                $photoId = $this->Photos->save($newPhoto);
+                
 
                 $userProfileId = $this->Profile->find("all", [
                     "conditions" => ["user_id" => $this->Auth->user('id')]
@@ -131,8 +129,14 @@ class ProfileController extends AppController
                 $userProfile = $this->Profile->get($userProfileId, [
                     "contains" => ["Users"]
                 ]);
+
+                $photo = $this->Photos->get($userProfile->photo_id);
+
+                $photo->url = "img/users/".$rData['url']['name'];
+                $photo->user_id = $this->Auth->user('id');
+
                 
-                $userProfile->photo_id = $photoId->id;
+                $userProfile->photo = $photo;
 
                 $this->Profile->save($userProfile);
             }

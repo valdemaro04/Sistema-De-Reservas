@@ -1,4 +1,16 @@
 <?= $this->Html->css('date') ?>
+<dialog class="mdl-dialog">
+    <h4 class="mdl-dialog__title">Allow data collection?</h4>
+    <div class="mdl-dialog__content">
+      <p>
+        Allowing us to collect data will let us get you the information you want faster.
+      </p>
+    </div>
+    <div class="mdl-dialog__actions">
+      <button type="button" class="mdl-button">Agree</button>
+      <button type="button" class="mdl-button close">Disagree</button>
+    </div>
+  </dialog>
     <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="table">
         <thead>
             <tr>
@@ -28,7 +40,7 @@
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" :onclick="'table.delete('+date.id+')'">
                         <i class="material-icons">delete</i>
                     </button>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" :onclick="'table.edit('+date.id+')'">
                         <i class="material-icons">create</i>
                     </button>
                     <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" :onclick="'table.accept('+date.id+')'">

@@ -15,6 +15,7 @@ var table = new Vue({
                     if (item.json) item.json = JSON.parse(item.json);
                 });
             });
+
         },
         delete: function(id) {
             console.log("trying to delete id "+id);

@@ -70,7 +70,7 @@ var editprofile = new Vue({
             }).then(function(response) {
                 console.log(response);
                 this.fetch();
-            })
+            });
         }
     }
 });

@@ -1,10 +1,20 @@
 <?= $this->Html->css('edit_profile') ?>
+
     <div class="edit_profile mdl-grid" id="edit">
 
         <div class="mdl-cell mdl-cell--6-col">
             <h6>Foto de perfil</h6>
-            <img :src="'../'+profile_photo" style="border-radius: 100px; width: 200px; height: 200px; margin: auto;"/>
-            <?php echo $this->Form->input('photo', ['type' => 'file', "@change" => "setPhoto", "ref" => "profilePhoto"]); ?>
+            <div>
+                <img :src="'../'+profile_photo" style="border-radius: 100px; width: 200px; height: 200px; margin: auto;"/>
+            </div>
+            
+                <label for="photo">
+                        <p>
+                            Cambiar foto
+                        </p>
+                </label>
+            
+            <?php echo $this->Form->input('photo', ['type' => 'file', "@change" => "setPhoto", "ref" => "profilePhoto", "label" => false, "style" => "visibility: hidden;"]); ?>
         </div>
 
         <div class="mdl-cell mdl-cell--6-col">
